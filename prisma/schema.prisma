@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  phone         String?
+  role          UserRole  @default(CUSTOMER)
+  password      String
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  bookings      Booking[]
+  
+  @@map("users")
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  name        String
+  description String   @db.Text
+  price       Decimal  @db.Decimal(10, 2)
+  duration    Int      // in minutes
+  category    String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  bookings    Booking[]
+  
+  @@map("services")
+}
+
+model Booking {
+  id              String        @id @default(cuid())
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  deviceModel     String?
+  deviceIssue     String?       @db.Text
+  preferredDate   DateTime
+  preferredTime   String?
+  status          BookingStatus @default(PENDING)
+  estimatedPrice  Decimal?      @db.Decimal(10, 2)
+  finalPrice      Decimal?      @db.Decimal(10, 2)
+  notes           String?       @db.Text
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  serviceId String
+  service   Service  @relation(fields: [serviceId], references: [id])
+  
+  @@map("bookings")
+}
+
+model ContactForm {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  
+  @@map("contact_forms")
+}
+
+model BusinessInfo {
+  id           String @id @default(cuid())
+  name         String
+  address      String
+  phone        String
+  email        String
+  hours        Json   // Store opening hours as JSON
+  socialLinks  Json   // Store social media links as JSON
+  
+  @@map("business_info")
+}
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
