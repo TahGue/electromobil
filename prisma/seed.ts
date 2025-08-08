@@ -20,29 +20,29 @@ async function main() {
   const services = [
     {
       name: 'Screen Replacement',
-      description: 'Professional screen replacement for smartphones',
-      price: 89.99,
-      duration: 45,
-      category: 'Screen'
+      description: 'Cracked or malfunctioning screen replacement for all major phone brands.',
+      price: 899,
+      duration: 60,
+      category: 'Hardware'
     },
     {
       name: 'Battery Replacement',
       description: 'Replace old battery with genuine parts',
-      price: 59.99,
+      price: 599,
       duration: 30,
       category: 'Battery'
     },
     {
-      name: 'Water Damage Repair',
-      description: 'Professional water damage repair and data recovery',
-      price: 129.99,
-      duration: 60,
-      category: 'Water Damage'
+      name: 'Charging Port Repair',
+      description: 'Repair of faulty charging ports to ensure your device powers up correctly.',
+      price: 699,
+      duration: 90,
+      category: 'Hardware'
     },
     {
       name: 'Software Fix',
       description: 'Software troubleshooting and system recovery',
-      price: 49.99,
+      price: 499,
       duration: 30,
       category: 'Software'
     }

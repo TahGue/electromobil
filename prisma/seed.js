@@ -47,11 +47,11 @@ async function main() {
   });
 
   const services = [
-    { name: 'Screen Replacement', description: 'Cracked or malfunctioning screen replacement for all major phone brands.', price: 120.0, duration: 60, category: 'Hardware' },
-    { name: 'Battery Replacement', description: 'Fast and reliable battery replacement to bring your phone back to life.', price: 80.0, duration: 45, category: 'Hardware' },
-    { name: 'Charging Port Repair', description: 'Repair of faulty charging ports to ensure your device powers up correctly.', price: 70.0, duration: 90, category: 'Hardware' },
-    { name: 'Water Damage Repair', description: 'Comprehensive cleaning and repair for water-damaged devices.', price: 200.0, duration: 180, category: 'Repair' },
-    { name: 'Software Troubleshooting', description: 'Resolving software issues, including OS errors, app crashes, and performance tuning.', price: 50.0, duration: 60, category: 'Software' },
+    { name: 'Screen Replacement', description: 'Cracked or malfunctioning screen replacement for all major phone brands.', price: 1200, duration: 60, category: 'Hardware' },
+    { name: 'Battery Replacement', description: 'Fast and reliable battery replacement to bring your phone back to life.', price: 800, duration: 45, category: 'Hardware' },
+    { name: 'Charging Port Repair', description: 'Repair of faulty charging ports to ensure your device powers up correctly.', price: 700, duration: 90, category: 'Hardware' },
+    { name: 'Water Damage Repair', description: 'Comprehensive cleaning and repair for water-damaged devices.', price: 2000, duration: 180, category: 'Repair' },
+    { name: 'Software Troubleshooting', description: 'Resolving software issues, including OS errors, app crashes, and performance tuning.', price: 500, duration: 60, category: 'Software' },
   ];
 
   await prisma.service.createMany({

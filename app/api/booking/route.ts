@@ -15,10 +15,22 @@ export async function GET() {
   }
 }
 
+interface BookingRequest {
+  name: string;
+  email: string;
+  phone: string;
+  serviceId: string;
+  appointmentDate: string;
+  notes?: string;
+}
+
 export async function POST(req: Request) {
   try {
-    const json = await req.json();
-    const body = bookingFormSchema.parse(json);
+    const json: BookingRequest = await req.json();
+    const body = bookingFormSchema.parse({
+      ...json,
+      appointmentDate: new Date(json.appointmentDate)
+    });
 
     const booking = await prisma.booking.create({
       data: {
@@ -37,7 +49,10 @@ export async function POST(req: Request) {
       return new NextResponse(JSON.stringify(error.issues), { status: 422 });
     }
 
-    console.error(error);
-    return new NextResponse('An internal server error occurred.', { status: 500 });
+    console.error('Booking error:', error);
+    return new NextResponse(
+      JSON.stringify({ error: 'An internal server error occurred.' }), 
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }

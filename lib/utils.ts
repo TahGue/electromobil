@@ -22,11 +22,17 @@ export function formatDate(date: Date | string): string {
 /**
  * Formats a number as a price
  */
-export function formatPrice(price: number): string {
-  return new Intl.NumberFormat('en-US', {
+export function formatPrice(price: number | string): string {
+  const numericPrice = typeof price === 'string' ? parseFloat(price) : price;
+  if (isNaN(numericPrice)) {
+    return '';
+  }
+  return new Intl.NumberFormat('sv-SE', {
     style: 'currency',
-    currency: 'USD',
-  }).format(price);
+    currency: 'SEK',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(numericPrice);
 }
 
 /**

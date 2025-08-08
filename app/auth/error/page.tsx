@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 
-export default function AuthErrorPage() {
+function AuthError() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
-  
+
   const errorMessages: Record<string, string> = {
     Configuration: 'There is a problem with the server configuration.',
     AccessDenied: 'You do not have permission to sign in.',
@@ -16,8 +16,8 @@ export default function AuthErrorPage() {
     Default: 'An error occurred during sign in. Please try again.',
   };
 
-  const errorMessage = error && error in errorMessages 
-    ? errorMessages[error as keyof typeof errorMessages] 
+  const errorMessage = error && error in errorMessages
+    ? errorMessages[error as keyof typeof errorMessages]
     : errorMessages.Default;
 
   return (
@@ -46,5 +46,13 @@ export default function AuthErrorPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AuthErrorPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthError />
+    </Suspense>
   );
 }

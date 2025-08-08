@@ -15,6 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/components/ui/use-toast';
 import { bookingFormSchema, BookingFormValues } from '@/lib/validations/booking';
+import { formatPrice } from '@/lib/utils';
 
 interface Service {
   id: string;
@@ -157,7 +158,7 @@ export default function BookingPage() {
                       ) : (
                         services.map((service) => (
                           <SelectItem key={service.id} value={service.id}>
-                            {service.name} - ${Number(service.price).toFixed(2)}
+                            {service.name} - {formatPrice(service.price)}
                           </SelectItem>
                         ))
                       )}

@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { formatPrice } from '@/lib/utils';
 
 const mockServices = [
   {
@@ -58,7 +59,7 @@ export default function ServicesPage() {
             </CardHeader>
             <CardContent>
               <p className="mb-4">{service.description}</p>
-              <p className="text-2xl font-bold text-primary">${service.price}</p>
+              <p className="text-2xl font-bold text-primary">{formatPrice(service.price)}</p>
             </CardContent>
           </Card>
         ))}
