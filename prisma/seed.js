@@ -40,7 +40,7 @@ async function main() {
       socialLinks: JSON.stringify({
         website: 'https://electromobil.se',
         facebook: '',
-        instagram: '',
+        instagram: 'https://www.instagram.com/electromobil.se/?hl=en',
         linkedin: ''
       })
     },
