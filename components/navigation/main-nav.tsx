@@ -12,12 +12,14 @@ export function MainNav() {
   const { data: session, status } = useSession();
   const isAdmin = session?.user?.role === 'ADMIN';
 
+  // Customer navigation: single-page anchors
   const routes = [
     { href: '/', label: 'Hem' },
-    { href: '/services', label: 'Tjänster' },
+    { href: '/#services', label: 'Tjänster' },
+    { href: '/#work', label: 'Före/Efter' },
+    { href: '/#reviews', label: 'Omdömen' },
     { href: '/booking', label: 'Boka Nu' },
-    { href: '/about', label: 'Om Oss' },
-    { href: '/contact', label: 'Kontakt' },
+    { href: '/#contact', label: 'Kontakt' },
   ];
 
   return (
@@ -31,18 +33,22 @@ export function MainNav() {
             </span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
-            {routes.map((route) => (
-              <Link
-                key={route.href}
-                href={route.href}
-                className={cn(
-                  'transition-colors hover:text-foreground/80',
-                  pathname === route.href ? 'text-foreground' : 'text-foreground/60'
-                )}
-              >
-                {route.label}
-              </Link>
-            ))}
+            {routes.map((route) => {
+              const isHash = route.href.includes('#');
+              const isActive = !isHash && pathname === route.href;
+              return (
+                <Link
+                  key={route.href}
+                  href={route.href}
+                  className={cn(
+                    'transition-colors hover:text-foreground/80',
+                    isActive ? 'text-foreground' : 'text-foreground/60'
+                  )}
+                >
+                  {route.label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
 

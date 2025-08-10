@@ -1,42 +1,33 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { HeroSlider } from '@/components/hero-slider'
+import { TrustBar } from '@/components/trust-bar'
+import { ServicesGrid } from '@/components/services-grid'
+import { BeforeAfterGallery } from '@/components/before-after-gallery'
+import { Testimonials } from '@/components/testimonials'
+import { PromoCountdown } from '@/components/promo-countdown'
+import { StickyMobileCta } from '@/components/sticky-mobile-cta'
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800" />
-        <div className="container relative z-10">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-  Professionell Mobilreparation
-            </h1>
-            <p className="text-xl text-white/90 mb-8">
-  Låt din enhet repareras av certifierade tekniker med samma dag
-            </p>
-            <Link href="/booking">
-              <Button className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4">
-  Boka Reparation Nu
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Hero Slider + Trust */}
+      <HeroSlider />
+      <TrustBar />
+      <PromoCountdown />
 
-      {/* Featured Services */}
-      <section className="py-20 bg-white">
-        <div className="container">
-  Våra Tjänster
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Service Cards will be dynamically populated from database */}
-          </div>
-        </div>
-      </section>
+      {/* Services */}
+      <ServicesGrid />
+
+      {/* Before / After */}
+      <BeforeAfterGallery />
+
+      {/* Testimonials */}
+      <Testimonials />
 
       {/* Call to Action */}
-      <section className="bg-blue-50 py-20">
+      <section id="contact" className="bg-blue-50 py-20">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
   Behöver hjälp med din enhet?
@@ -51,6 +42,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Sticky CTA on mobile */}
+      <StickyMobileCta />
     </main>
   )
 }
