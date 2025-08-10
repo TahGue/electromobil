@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { formatPrice } from "@/lib/utils";
 
 // Placeholder service items; can be replaced with DB data later
 const defaultServices = [
-  { name: "Screen Repair", desc: "Cracked or unresponsive screens.", price: 49, duration: "45–60 min" },
-  { name: "Battery Replacement", desc: "Fast battery swaps.", price: 39, duration: "30–45 min" },
-  { name: "Charging Port", desc: "Fix loose or damaged ports.", price: 39, duration: "45–60 min" },
-  { name: "Camera Repair", desc: "Rear or selfie camera issues.", price: 59, duration: "60–90 min" },
-  { name: "Water Damage", desc: "Diagnostics & board cleaning.", price: 69, duration: "Same day" },
-  { name: "Data Recovery", desc: "Recover precious data.", price: 79, duration: "Varies" },
+  { name: "Skärmbyte", desc: "Sprucken eller okänslig skärm.", price: 799, duration: "45–60 min" },
+  { name: "Batteribyte", desc: "Snabbt byte till nytt batteri.", price: 599, duration: "30–45 min" },
+  { name: "Laddningsport", desc: "Åtgärdar glapp eller trasiga portar.", price: 599, duration: "45–60 min" },
+  { name: "Kamerareparation", desc: "Problem med fram- eller bakkamera.", price: 899, duration: "60–90 min" },
+  { name: "Vattenskada", desc: "Diagnos och rengöring av moderkort.", price: 1499, duration: "Samma dag" },
+  { name: "Dataåterställning", desc: "Återställ förlorad eller raderad data.", price: 1299, duration: "Varierar" },
 ];
 
 export function ServicesGrid({ services = defaultServices }: { services?: typeof defaultServices }) {
@@ -21,7 +22,7 @@ export function ServicesGrid({ services = defaultServices }: { services?: typeof
             <div key={s.name} className="rounded-lg border p-5 shadow-sm hover:shadow-md transition">
               <div className="flex items-start justify-between gap-3">
                 <h3 className="text-lg font-semibold">{s.name}</h3>
-                <span className="text-blue-600 font-semibold">från €{s.price}</span>
+                <span className="text-blue-600 font-semibold">från {formatPrice(s.price)}</span>
               </div>
               <p className="text-sm text-gray-600 mt-2">{s.desc}</p>
               <div className="text-xs text-gray-500 mt-2">Tid: {s.duration}</div>

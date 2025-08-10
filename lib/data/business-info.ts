@@ -9,7 +9,26 @@ import { cache } from 'react';
  */
 export const getBusinessInfo = cache(async () => {
   console.log('Fetching business info...');
-  const info = await prisma.businessInfo.findFirst();
+  // If DATABASE_URL is not defined (e.g., build time on Vercel),
+  // avoid initializing Prisma and return safe defaults.
+  if (!process.env.DATABASE_URL) {
+    return {
+      id: '',
+      name: 'TechFix Mobile',
+      address: '123 Tech St, Digital City, USA',
+      phone: '(555) 123-4567',
+      email: 'info@techfixmobile.com',
+      hours: {},
+      socialLinks: { facebook: '#', twitter: '#', instagram: '#' },
+    };
+  }
+
+  let info = null as any;
+  try {
+    info = await prisma.businessInfo.findFirst();
+  } catch (err) {
+    console.error('prisma:error getBusinessInfo', err);
+  }
 
   // Provide default info if none is found in the database
   return info || {

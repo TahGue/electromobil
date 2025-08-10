@@ -6,7 +6,7 @@ export default async function ContactPage() {
   const businessInfo = await getBusinessInfo();
 
   if (!businessInfo) {
-    return <div>Loading business information...</div>;
+    return <div>Laddar företagsinformation...</div>;
   }
 
   // Geocode the address to get coordinates

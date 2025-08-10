@@ -8,6 +8,9 @@ import { MainNav } from '@/components/navigation/main-nav';
 import { Footer } from '@/components/navigation/footer';
 import './globals.css';
 
+// Ensure this layout is treated as dynamic to prevent DB access at build time
+export const dynamic = 'force-dynamic';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {

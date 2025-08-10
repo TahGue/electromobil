@@ -19,10 +19,10 @@ export async function Footer() {
           <div>
             <h4 className="font-semibold text-foreground">Snabblänkar</h4>
             <ul className="mt-4 space-y-2 text-sm">
-              <li><Link href="/services" className="hover:text-primary">Tjänster</Link></li>
+              <li><Link href="/#services" className="hover:text-primary">Tjänster</Link></li>
               <li><Link href="/booking" className="hover:text-primary">Boka en reparation</Link></li>
-              <li><Link href="/about" className="hover:text-primary">Om oss</Link></li>
-              <li><Link href="/contact" className="hover:text-primary">Kontakt</Link></li>
+              <li><Link href="/#reviews" className="hover:text-primary">Omdömen</Link></li>
+              <li><Link href="/#contact" className="hover:text-primary">Kontakt</Link></li>
             </ul>
           </div>
           <div>

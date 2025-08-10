@@ -1,9 +1,9 @@
 export function TrustBar() {
   const items = [
-    { label: "4.9★ on Google", sub: "250+ reviews" },
-    { label: "Same‑Day Repair", sub: "Most fixes under 1 hour" },
-    { label: "Warranty", sub: "6–12 months on parts" },
-    { label: "OEM‑grade Parts", sub: "Premium quality" },
+    { label: "4,9★ på Google", sub: "250+ omdömen" },
+    { label: "Reparation samma dag", sub: "De flesta klart under 1 timme" },
+    { label: "Garanti", sub: "6–12 månader på delar" },
+    { label: "OEM‑klassade delar", sub: "Premiumkvalitet" },
   ];
   return (
     <section className="bg-white py-6 border-b">

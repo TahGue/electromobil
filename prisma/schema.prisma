@@ -101,3 +101,29 @@ enum BookingStatus {
   COMPLETED
   CANCELLED
 }
+
+/// Images used across the site and admin
+model Image {
+  id         String        @id @default(cuid())
+  url        String
+  alt        String
+  section    ImageSection
+  creditName String?
+  creditUrl  String?
+  position   Int           @default(0)
+  isActive   Boolean       @default(true)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@map("images")
+}
+
+enum ImageSection {
+  HERO
+  SERVICES
+  TESTIMONIALS
+  GALLERY
+  BOOKING
+  CONTACT
+  TRUST
+}

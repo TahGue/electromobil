@@ -8,21 +8,21 @@ import { Button } from "@/components/ui/button";
 const slides = [
   {
     src: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1600&auto=format&fit=crop",
-    headline: "Same‑Day Screen Repair",
-    sub: "Premium parts, expert technicians, 6–12 month warranty",
-    cta: { label: "Book Now", href: "/booking" },
+    headline: "Skärmbyte samma dag",
+    sub: "Premiumdelar, experttekniker, 6–12 mån garanti",
+    cta: { label: "Boka nu", href: "/booking" },
   },
   {
     src: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1600&auto=format&fit=crop",
-    headline: "Battery Replacement in 45 Minutes",
-    sub: "Keep your phone running like new — from €39",
-    cta: { label: "Get Quote", href: "/booking" },
+    headline: "Batteribyte på 45 minuter",
+    sub: "Håll din mobil som ny",
+    cta: { label: "Få offert", href: "/booking" },
   },
   {
     src: "https://images.unsplash.com/photo-1555421689-43cad7100751?q=80&w=1600&auto=format&fit=crop",
-    headline: "We Come to You",
-    sub: "On‑site repairs available in your area",
-    cta: { label: "Call Us", href: "/contact" },
+    headline: "Vi kommer till dig",
+    sub: "Reparation på plats i ditt område",
+    cta: { label: "Ring oss", href: "tel:+46123456789" },
   },
 ];
 
@@ -69,7 +69,7 @@ export function HeroSlider() {
         {slides.map((_, i) => (
           <button
             key={i}
-            aria-label={`Go to slide ${i + 1}`}
+            aria-label={`Gå till bild ${i + 1}`}
             onClick={() => setIndex(i)}
             className={`h-2 w-2 rounded-full ${i === index ? "bg-white" : "bg-white/50"}`}
           />

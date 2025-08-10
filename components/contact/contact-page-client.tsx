@@ -19,7 +19,7 @@ import { contactFormSchema, ContactFormValues } from '@/lib/validations/contact'
 import dynamic from 'next/dynamic';
 const Map = dynamic(() => import('@/components/contact/map'), { 
   ssr: false,
-  loading: () => <div className="flex items-center justify-center h-full text-muted-foreground">Loading Map...</div>
+  loading: () => <div className="flex items-center justify-center h-full text-muted-foreground">Laddar karta...</div>
 });
 import { BusinessInfo } from '@prisma/client';
 

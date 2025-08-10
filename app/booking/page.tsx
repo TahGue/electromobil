@@ -4,6 +4,7 @@ import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
+import { sv as svLocale } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -33,15 +34,15 @@ export default function BookingPage() {
       try {
         const response = await fetch('/api/services');
         if (!response.ok) {
-          throw new Error('Failed to fetch services');
+          throw new Error('Kunde inte hämta tjänster');
         }
         const data = await response.json();
         setServices(data);
       } catch (error) {
         console.error(error);
         toast({
-          title: 'Error',
-          description: 'Could not load services. Please try again later.',
+          title: 'Fel',
+          description: 'Kunde inte ladda tjänster. Försök igen senare.',
           variant: 'destructive',
         });
       } finally {
@@ -67,19 +68,19 @@ export default function BookingPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create booking.');
+        throw new Error('Kunde inte skapa bokning.');
       }
 
       toast({
-        title: 'Bokning Bekräftad!',
-        description: `Ditt möte har bokats framgångsrikt.`,
+        title: 'Bokning bekräftad!',
+        description: `Ditt möte har bokats.`,
       });
       form.reset({ name: '', email: '', phone: '', notes: '' });
     } catch (error) {
       console.error(error);
       toast({
-        title: 'Error',
-        description: 'There was a problem scheduling your appointment. Please try again.',
+        title: 'Fel',
+        description: 'Ett problem uppstod när din bokning skulle sparas. Försök igen.',
         variant: 'destructive',
       });
     }
@@ -104,7 +105,7 @@ export default function BookingPage() {
                 <FormItem>
                   <FormLabel>Namn</FormLabel>
                   <FormControl>
-                    <Input placeholder="John Doe" {...field} />
+                    <Input placeholder="Anna Andersson" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -119,7 +120,7 @@ export default function BookingPage() {
                   <FormItem>
                     <FormLabel>E-post</FormLabel>
                     <FormControl>
-                      <Input placeholder="john.doe@example.com" {...field} />
+                      <Input placeholder="anna.andersson@example.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -132,7 +133,7 @@ export default function BookingPage() {
                   <FormItem>
                     <FormLabel>Telefonnummer</FormLabel>
                     <FormControl>
-                      <Input placeholder="(555) 123-4567" {...field} />
+                      <Input placeholder="070-123 45 67" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -145,7 +146,7 @@ export default function BookingPage() {
               name="serviceId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Service</FormLabel>
+                  <FormLabel>Tjänst</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
@@ -154,7 +155,7 @@ export default function BookingPage() {
                     </FormControl>
                     <SelectContent>
                       {isLoading ? (
-                        <SelectItem value="loading" disabled>Loading services...</SelectItem>
+                        <SelectItem value="loading" disabled>Laddar tjänster...</SelectItem>
                       ) : (
                         services.map((service) => (
                           <SelectItem key={service.id} value={service.id}>
@@ -186,9 +187,9 @@ export default function BookingPage() {
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'PPP')
+                            format(field.value, 'PPP', { locale: svLocale })
                           ) : (
-                            <span>Pick a date</span>
+                            <span>Välj datum</span>
                           )}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>

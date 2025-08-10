@@ -14,7 +14,7 @@ function getTimeLeft(target: Date) {
 
 export function PromoCountdown({
   until = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-  title = "Limited‑Time Offer: 15% off Screen Repairs",
+  title = "Tidsbegränsat erbjudande: 15% rabatt på skärmbyten",
   code = "SAVE15",
 }: {
   until?: Date;
@@ -37,7 +37,7 @@ export function PromoCountdown({
       <div className="container flex flex-col items-center text-center gap-4">
         <h3 className="text-xl md:text-2xl font-semibold text-blue-900">{title}</h3>
         <div className="flex gap-2">{box(left.days, "d")}{box(left.hours, "h")}{box(left.minutes, "m")}{box(left.seconds, "s")}</div>
-        <div className="text-sm text-blue-900/80">Use code <span className="font-semibold">{code}</span> at checkout</div>
+        <div className="text-sm text-blue-900/80">Använd koden <span className="font-semibold">{code}</span> i kassan</div>
       </div>
     </section>
   );

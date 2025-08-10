@@ -12,7 +12,7 @@ export function cn(...inputs: ClassValue[]) {
  * Formats a date to a human-readable string
  */
 export function formatDate(date: Date | string): string {
-  return new Date(date).toLocaleDateString('en-US', {
+  return new Date(date).toLocaleDateString('sv-SE', {
     month: 'long',
     day: 'numeric',
     year: 'numeric',

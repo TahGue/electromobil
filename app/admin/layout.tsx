@@ -14,17 +14,20 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="flex min-h-screen">
       <aside className="w-64 bg-gray-900 text-white flex flex-col p-6">
-        <h2 className="text-2xl font-bold mb-8">Admin Dashboard</h2>
+        <h2 className="text-2xl font-bold mb-8">Adminpanel</h2>
         <nav className="flex flex-col space-y-2 flex-grow">
-          <Link href="/admin/bookings" className="hover:bg-gray-800 rounded px-3 py-2">Bookings</Link>
-          <Link href="/admin/business-info" className="hover:bg-gray-800 rounded px-3 py-2">Business Info</Link>
-          {/* Add other admin links here */}
+          <Link href="/admin/services" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Tjänster</Link>
+          <Link href="/admin/users" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Användare</Link>
+          <Link href="/admin/bookings" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Bokningar</Link>
+          <Link href="/admin/business-info" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Företagsinfo</Link>
+          <Link href="/admin/images" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Bilder</Link>
+          {/* Lägg till fler adminlänkar här */}
         </nav>
         <div className="mt-auto">
           <SignOutButton />
         </div>
       </aside>
-      <main className="flex-1 p-8 bg-gray-50">{children}</main>
+      <main className="flex-1 p-8 bg-gray-50 text-gray-900">{children}</main>
     </div>
   );
 }
