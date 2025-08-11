@@ -67,75 +67,67 @@ export default function POSManagementPage() {
   useEffect(() => {
     const checkZettleConfiguration = async () => {
       try {
-        const response = await fetch('/api/zettle/debug');
+        const response = await fetch('/api/zettle/test-connection');
         const result = await response.json();
         
-        if (result.success) {
-          if (result.authRecord && !result.authRecord.isExpired) {
-            // OAuth connection is active
+        if (response.ok && result.isConfigured) {
+          // Check if we have OAuth connection by testing authentication
+          try {
+            const authResponse = await fetch('/api/zettle/auth', { method: 'POST' });
+            const authResult = await authResponse.json();
+            
+            if (authResponse.ok && authResult.connected) {
+              // OAuth connection is active
+              setConfigStatus({
+                isConfigured: true,
+                environment: result.environment,
+                currency: result.currency,
+                country: result.country,
+                connected: true
+              });
+              setIsAuthenticated(true);
+              toast({
+                title: 'Zettle OAuth-anslutning aktiv',
+                description: `Miljö: ${result.environment}`,
+              });
+              // Load data if connected
+              loadProducts();
+              loadTransactions();
+            } else {
+              // No OAuth connection or expired
+              setConfigStatus({
+                isConfigured: true,
+                environment: result.environment,
+                currency: result.currency,
+                country: result.country,
+                connected: false,
+                needsConnection: true
+              });
+              toast({
+                title: 'Zettle redo för anslutning',
+                description: 'Klicka på "Anslut till Zettle OAuth" för att börja',
+              });
+            }
+          } catch (authError) {
+            // Auth check failed, show connection needed
             setConfigStatus({
               isConfigured: true,
-              environment: result.environment.ZETTLE_ENVIRONMENT,
-              currency: 'SEK',
-              country: 'SE',
-              connected: true,
-              expiresAt: result.authRecord.expiresAt
-            });
-            setIsAuthenticated(true);
-            toast({
-              title: 'Zettle OAuth-anslutning aktiv',
-              description: `Miljö: ${result.environment.ZETTLE_ENVIRONMENT}`,
-            });
-            // Load data if connected
-            loadProducts();
-            loadTransactions();
-          } else if (result.authRecord && result.authRecord.isExpired) {
-            // OAuth connection expired
-            setConfigStatus({
-              isConfigured: true,
-              environment: result.environment.ZETTLE_ENVIRONMENT,
-              currency: 'SEK',
-              country: 'SE',
-              connected: false,
-              expired: true
-            });
-            toast({
-              title: 'Zettle-anslutning utgången',
-              description: 'Anslut igen för att fortsätta använda Zettle',
-              variant: 'destructive',
-            });
-          } else {
-            // No OAuth connection
-            setConfigStatus({
-              isConfigured: result.environment.ZETTLE_CLIENT_ID && result.environment.ZETTLE_CLIENT_SECRET,
-              environment: result.environment.ZETTLE_ENVIRONMENT,
-              currency: 'SEK',
-              country: 'SE',
+              environment: result.environment,
+              currency: result.currency,
+              country: result.country,
               connected: false,
               needsConnection: true
             });
-            if (result.environment.ZETTLE_CLIENT_ID && result.environment.ZETTLE_CLIENT_SECRET) {
-              toast({
-                title: 'Zettle redo för anslutning',
-                description: 'Klicka på "Anslut till Zettle" för att börja',
-              });
-            } else {
-              toast({
-                title: 'Zettle-konfiguration saknas',
-                description: 'Kontrollera miljövariabler för Client ID och Secret',
-                variant: 'destructive',
-              });
-            }
           }
         } else {
           setConfigStatus({
             isConfigured: false,
-            error: result.error || 'Kunde inte kontrollera Zettle-status',
-            details: result.message
+            connected: false,
+            error: result.message || 'Zettle-konfiguration saknas'
           });
           toast({
-            title: 'Zettle-statusfel',
-            description: result.error || 'Kunde inte kontrollera anslutningsstatus',
+            title: 'Konfigurationsfel',
+            description: result.message || 'Kontrollera Zettle-inställningar',
             variant: 'destructive',
           });
         }
@@ -184,20 +176,37 @@ export default function POSManagementPage() {
 
   const checkConnectionStatus = async () => {
     try {
-      const response = await fetch('/api/zettle/debug');
+      const response = await fetch('/api/zettle/auth', { method: 'POST' });
       const result = await response.json();
       
-      if (result.success && result.authRecord) {
+      if (response.ok && result.connected) {
         setIsAuthenticated(true);
+        setConfigStatus(prev => ({ ...prev, connected: true }));
+        toast({
+          title: 'Zettle OAuth-anslutning aktiv',
+          description: 'Anslutningen fungerar korrekt',
+        });
         // Load initial data if connected
         loadProducts();
         loadTransactions();
       } else {
         setIsAuthenticated(false);
+        setConfigStatus(prev => ({ ...prev, connected: false, needsConnection: true }));
+        toast({
+          title: 'Zettle-anslutning krävs',
+          description: result.message || 'Anslut till Zettle OAuth för att fortsätta',
+          variant: 'destructive',
+        });
       }
     } catch (error) {
       console.error('Connection status check failed:', error);
       setIsAuthenticated(false);
+      setConfigStatus(prev => ({ ...prev, connected: false, needsConnection: true }));
+      toast({
+        title: 'Anslutningsfel',
+        description: 'Kunde inte kontrollera Zettle-anslutning',
+        variant: 'destructive',
+      });
     }
   };
 

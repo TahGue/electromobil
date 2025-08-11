@@ -9,7 +9,10 @@ export async function GET(req: NextRequest) {
     const apiUrl = process.env.ZETTLE_API_URL || 'https://oauth.zettle.com';
     const clientId = process.env.ZETTLE_CLIENT_ID;
     const clientSecret = process.env.ZETTLE_CLIENT_SECRET;
-    const redirectUri = process.env.ZETTLE_REDIRECT_URI || 'http://localhost:3000/api/zettle/oauth/callback';
+    const redirectUri = process.env.ZETTLE_REDIRECT_URI || 
+      (process.env.NODE_ENV === 'production' 
+        ? 'https://www.electromobil.se/api/zettle/oauth/callback'
+        : 'http://localhost:3000/api/zettle/oauth/callback');
 
     const { searchParams } = new URL(req.url);
     const code = searchParams.get('code');
