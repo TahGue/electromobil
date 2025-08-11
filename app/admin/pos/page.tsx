@@ -67,10 +67,11 @@ export default function POSManagementPage() {
   useEffect(() => {
     const checkZettleConfiguration = async () => {
       try {
-        const response = await fetch('/api/zettle/test-connection');
-        const result = await response.json();
+        // Check OAuth configuration directly
+        const oauthResponse = await fetch('/api/zettle/oauth/debug');
+        const oauthResult = await oauthResponse.json();
         
-        if (response.ok && result.isConfigured) {
+        if (oauthResponse.ok && oauthResult.success && oauthResult.debug.clientId === 'SET') {
           // Check if we have OAuth connection by testing authentication
           try {
             const authResponse = await fetch('/api/zettle/auth', { method: 'POST' });
@@ -80,15 +81,15 @@ export default function POSManagementPage() {
               // OAuth connection is active
               setConfigStatus({
                 isConfigured: true,
-                environment: result.environment,
-                currency: result.currency,
-                country: result.country,
+                environment: 'production',
+                currency: 'SEK',
+                country: 'SE',
                 connected: true
               });
               setIsAuthenticated(true);
               toast({
                 title: 'Zettle OAuth-anslutning aktiv',
-                description: `Miljö: ${result.environment}`,
+                description: `Miljö: production`,
               });
               // Load data if connected
               loadProducts();
@@ -97,9 +98,9 @@ export default function POSManagementPage() {
               // No OAuth connection or expired
               setConfigStatus({
                 isConfigured: true,
-                environment: result.environment,
-                currency: result.currency,
-                country: result.country,
+                environment: 'production',
+                currency: 'SEK',
+                country: 'SE',
                 connected: false,
                 needsConnection: true
               });
@@ -112,9 +113,9 @@ export default function POSManagementPage() {
             // Auth check failed, show connection needed
             setConfigStatus({
               isConfigured: true,
-              environment: result.environment,
-              currency: result.currency,
-              country: result.country,
+              environment: 'production',
+              currency: 'SEK',
+              country: 'SE',
               connected: false,
               needsConnection: true
             });
@@ -123,11 +124,11 @@ export default function POSManagementPage() {
           setConfigStatus({
             isConfigured: false,
             connected: false,
-            error: result.message || 'Zettle-konfiguration saknas'
+            error: 'Zettle OAuth-konfiguration saknas'
           });
           toast({
             title: 'Konfigurationsfel',
-            description: result.message || 'Kontrollera Zettle-inställningar',
+            description: 'Kontrollera Zettle OAuth-inställningar',
             variant: 'destructive',
           });
         }
