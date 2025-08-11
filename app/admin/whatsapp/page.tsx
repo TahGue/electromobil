@@ -212,7 +212,7 @@ export default function WhatsAppAdminPage() {
           <div className="space-y-2">
             <Label htmlFor="phoneNumber">Telefonnummer</Label>
             <div className="relative">
-              <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 h-4 w-4" />
               <Input
                 id="phoneNumber"
                 value={formData.phoneNumber}

@@ -21,7 +21,7 @@ export function Testimonials() {
           {items.map((t) => (
             <blockquote key={t.name} className="rounded-lg border p-5 bg-gray-50">
               <p className="text-gray-800">“{t.text}”</p>
-              <footer className="mt-3 text-sm text-gray-600">— {t.name}</footer>
+              <footer className="mt-3 text-sm text-gray-700">— {t.name}</footer>
             </blockquote>
           ))}
         </div>

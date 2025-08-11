@@ -141,7 +141,7 @@ export default function AdminBookingsPage() {
               const count = bookings.filter(b => b.status === status).length;
               return (
                 <div key={status} className="bg-white p-4 rounded-lg border">
-                  <div className="text-sm font-medium text-gray-500">{getBookingStatusText(status)}</div>
+                  <div className="text-sm font-medium text-gray-700">{getBookingStatusText(status)}</div>
                   <div className="text-2xl font-bold">{count}</div>
                 </div>
               );
@@ -187,12 +187,12 @@ export default function AdminBookingsPage() {
                       </td>
                       <td className="px-4 py-3">
                         <div className="text-sm">{booking.customerEmail}</div>
-                        <div className="text-sm text-gray-600">{booking.customerPhone}</div>
+                        <div className="text-sm text-gray-800">{booking.customerPhone}</div>
                       </td>
                       <td className="px-4 py-3">
                         <div className="font-medium">{booking.service?.name ?? '-'}</div>
                         {booking.notes && (
-                          <div className="text-xs text-gray-500 max-w-[200px] truncate" title={booking.notes}>
+                          <div className="text-xs text-gray-700 max-w-[200px] truncate" title={booking.notes}>
                             📝 {booking.notes}
                           </div>
                         )}
@@ -209,9 +209,9 @@ export default function AdminBookingsPage() {
                         {booking.finalPrice ? (
                           <div className="font-medium">{Number(booking.finalPrice)} SEK</div>
                         ) : booking.estimatedPrice ? (
-                          <div className="text-sm text-gray-600">~{Number(booking.estimatedPrice)} SEK</div>
+                          <div className="text-sm text-gray-800">~{Number(booking.estimatedPrice)} SEK</div>
                         ) : (
-                          <div className="text-sm text-gray-400">-</div>
+                          <div className="text-sm text-gray-600">-</div>
                         )}
                       </td>
                       <td className="px-4 py-3">

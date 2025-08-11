@@ -70,7 +70,7 @@ export function PromoCountdown() {
   const box = (n: number, l: string) => (
     <div className="flex flex-col items-center bg-white/90 rounded-md px-3 py-2 shadow">
       <div className="text-2xl font-bold text-gray-900 tabular-nums">{n}</div>
-      <div className="text-xs text-gray-600">{l}</div>
+      <div className="text-xs text-gray-700">{l}</div>
     </div>
   );
 

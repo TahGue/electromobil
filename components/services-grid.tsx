@@ -24,8 +24,8 @@ export function ServicesGrid({ services = defaultServices }: { services?: typeof
                 <h3 className="text-lg font-semibold">{s.name}</h3>
                 <span className="text-blue-600 font-semibold">från {formatPrice(s.price)}</span>
               </div>
-              <p className="text-sm text-gray-600 mt-2">{s.desc}</p>
-              <div className="text-xs text-gray-500 mt-2">Tid: {s.duration}</div>
+              <p className="text-sm text-gray-700 mt-2">{s.desc}</p>
+              <div className="text-xs text-gray-600 mt-2">Tid: {s.duration}</div>
               <Link href="/booking" className="inline-block mt-4">
                 <Button className="px-3 py-2 text-sm">Boka</Button>
               </Link>

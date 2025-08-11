@@ -235,7 +235,7 @@ export default function PromoCountdownAdminPage() {
           <div className="space-y-2">
             <Label htmlFor="percentage">Rabatt (%)</Label>
             <div className="relative">
-              <PercentIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <PercentIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 h-4 w-4" />
               <Input
                 id="percentage"
                 type="number"
@@ -253,7 +253,7 @@ export default function PromoCountdownAdminPage() {
           <div className="space-y-2">
             <Label htmlFor="couponCode">Kupongkod</Label>
             <div className="relative">
-              <TagIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <TagIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 h-4 w-4" />
               <Input
                 id="couponCode"
                 value={formData.couponCode}
@@ -268,7 +268,7 @@ export default function PromoCountdownAdminPage() {
           <div className="space-y-2">
             <Label htmlFor="endDateTime">Slutdatum och tid</Label>
             <div className="relative">
-              <CalendarIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <CalendarIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 h-4 w-4" />
               <Input
                 id="endDateTime"
                 type="datetime-local"

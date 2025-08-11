@@ -11,7 +11,7 @@ export function TrustBar() {
         {items.map((i) => (
           <div key={i.label} className="text-center">
             <div className="font-semibold text-gray-900">{i.label}</div>
-            <div className="text-sm text-gray-500">{i.sub}</div>
+            <div className="text-sm text-gray-700">{i.sub}</div>
           </div>
         ))}
       </div>

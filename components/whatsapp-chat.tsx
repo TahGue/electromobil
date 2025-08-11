@@ -82,7 +82,7 @@ export default function WhatsAppChat({
           {/* Content */}
           <div className="p-4">
             <div className="mb-4">
-              <p className="text-gray-600 text-sm mb-3">
+              <p className="text-gray-800 text-sm mb-3">
                 Hej! 👋 Hur kan vi hjälpa dig idag?
               </p>
 
@@ -116,7 +116,7 @@ export default function WhatsAppChat({
 
               {/* Custom Message */}
               <div className="space-y-3">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-800">
                   Eller skriv ditt eget meddelande:
                 </label>
                 <textarea
@@ -139,7 +139,7 @@ export default function WhatsAppChat({
 
           {/* Footer */}
           <div className="px-4 py-3 bg-gray-50 border-t">
-            <div className="flex items-center space-x-2 text-xs text-gray-500">
+            <div className="flex items-center space-x-2 text-xs text-gray-700">
               <Phone className="w-3 h-3" />
               <span>Powered by WhatsApp</span>
             </div>

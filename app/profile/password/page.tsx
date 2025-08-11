@@ -89,7 +89,7 @@ export default function ChangePasswordPage() {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <Shield className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+          <Shield className="mx-auto h-12 w-12 text-gray-600 mb-4" />
           <h2 className="text-xl font-semibold mb-2">Åtkomst nekad</h2>
           <p className="text-gray-600 mb-4">Du måste vara inloggad för att ändra ditt lösenord</p>
           <Link href="/auth/signin">
@@ -241,7 +241,7 @@ export default function ChangePasswordPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
               <div className="flex items-center gap-2">
                 <CheckCircle className={`h-4 w-4 ${newPassword?.length >= 8 ? 'text-green-600' : 'text-gray-400'}`} />
-                <span className={newPassword?.length >= 8 ? 'text-green-600' : 'text-gray-600'}>
+                <span className={newPassword?.length >= 8 ? 'text-green-600' : 'text-gray-800'}>
                   Minst 8 tecken
                 </span>
               </div>
