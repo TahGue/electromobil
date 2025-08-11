@@ -95,7 +95,7 @@ export default function POSManagementPage() {
               loadProducts();
               loadTransactions();
             } else {
-              // No OAuth connection or expired
+              // No OAuth connection or expired (400 error is expected if no tokens exist)
               setConfigStatus({
                 isConfigured: true,
                 environment: 'production',
@@ -104,13 +104,17 @@ export default function POSManagementPage() {
                 connected: false,
                 needsConnection: true
               });
-              toast({
-                title: 'Zettle redo för anslutning',
-                description: 'Klicka på "Anslut till Zettle OAuth" för att börja',
-              });
+              // Only show toast if it's an expired connection, not missing connection
+              if (authResult.needsReconnection) {
+                toast({
+                  title: 'Zettle-anslutning utgången',
+                  description: 'Anslut igen för att fortsätta använda Zettle',
+                  variant: 'destructive',
+                });
+              }
             }
           } catch (authError) {
-            // Auth check failed, show connection needed
+            // Auth check failed, show connection needed (this is normal if no OAuth tokens exist)
             setConfigStatus({
               isConfigured: true,
               environment: 'production',
