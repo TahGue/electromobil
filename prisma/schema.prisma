@@ -43,6 +43,7 @@ model Service {
 
 model Booking {
   id             String        @id @default(cuid())
+  bookingNumber  String        @unique
   customerName   String
   customerEmail  String
   customerPhone  String
@@ -54,6 +55,7 @@ model Booking {
   estimatedPrice Decimal?      @db.Decimal(10, 2)
   finalPrice     Decimal?      @db.Decimal(10, 2)
   notes          String?
+  emailSent      Boolean       @default(false)
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   userId         String?
