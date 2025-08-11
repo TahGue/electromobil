@@ -56,6 +56,9 @@ model Booking {
   finalPrice     Decimal?      @db.Decimal(10, 2)
   notes          String?
   emailSent      Boolean       @default(false)
+  whatsappConsent Boolean      @default(false)
+  whatsappSent   Boolean       @default(false)
+  lastNotificationSent DateTime?
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   userId         String?
