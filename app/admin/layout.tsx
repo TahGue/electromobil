@@ -18,6 +18,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <nav className="flex flex-col space-y-2 flex-grow">
           <Link href="/admin/services" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Tjänster</Link>
           <Link href="/admin/users" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Användare</Link>
+          <Link href="/admin/password-management" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Lösenordshantering</Link>
+          <Link href="/admin/pos" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">POS-system</Link>
           <Link href="/admin/bookings" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Bokningar</Link>
           <Link href="/admin/business-info" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Företagsinfo</Link>
           <Link href="/admin/images" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Bilder</Link>

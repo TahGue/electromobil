@@ -18,49 +18,49 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  
   bookings      Booking[]
-  
+
   @@map("users")
 }
 
 model Service {
-  id          String   @id @default(cuid())
-  name        String
-  description String   @db.Text
-  price       Decimal  @db.Decimal(10, 2)
-  duration    Int      // in minutes
-  category    String
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  bookings    Booking[]
-  
+  id              String    @id @default(cuid())
+  name            String
+  description     String
+  price           Decimal   @db.Decimal(10, 2)
+  duration        Int
+  category        String
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  lastSyncedAt    DateTime?
+  zettleEtag      String?
+  zettleProductId String?   @unique
+  bookings        Booking[]
+
   @@map("services")
 }
 
 model Booking {
-  id              String        @id @default(cuid())
-  customerName    String
-  customerEmail   String
-  customerPhone   String
-  deviceModel     String?
-  deviceIssue     String?       @db.Text
-  preferredDate   DateTime
-  preferredTime   String?
-  status          BookingStatus @default(PENDING)
-  estimatedPrice  Decimal?      @db.Decimal(10, 2)
-  finalPrice      Decimal?      @db.Decimal(10, 2)
-  notes           String?       @db.Text
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime @updatedAt
-  
-  userId    String?
-  user      User?    @relation(fields: [userId], references: [id])
-  serviceId String
-  service   Service  @relation(fields: [serviceId], references: [id])
-  
+  id             String        @id @default(cuid())
+  customerName   String
+  customerEmail  String
+  customerPhone  String
+  deviceModel    String?
+  deviceIssue    String?
+  preferredDate  DateTime
+  preferredTime  String?
+  status         BookingStatus @default(PENDING)
+  estimatedPrice Decimal?      @db.Decimal(10, 2)
+  finalPrice     Decimal?      @db.Decimal(10, 2)
+  notes          String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  userId         String?
+  serviceId      String
+  service        Service       @relation(fields: [serviceId], references: [id])
+  user           User?         @relation(fields: [userId], references: [id])
+
   @@map("bookings")
 }
 
@@ -70,23 +70,53 @@ model ContactForm {
   email     String
   phone     String?
   subject   String
-  message   String   @db.Text
+  message   String
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
-  
+
   @@map("contact_forms")
 }
 
 model BusinessInfo {
-  id           String @id @default(cuid())
-  name         String
-  address      String
-  phone        String
-  email        String
-  hours        Json   // Store opening hours as JSON
-  socialLinks  Json   // Store social media links as JSON
-  
+  id          String @id @default(cuid())
+  name        String
+  address     String
+  phone       String
+  email       String
+  hours       Json
+  socialLinks Json
+
   @@map("business_info")
+}
+
+/// Images used across the site and admin
+model Image {
+  id         String       @id @default(cuid())
+  url        String
+  alt        String
+  section    ImageSection
+  creditName String?
+  creditUrl  String?
+  position   Int          @default(0)
+  isActive   Boolean      @default(true)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  @@map("images")
+}
+
+/// Stores OAuth tokens for Zettle (singleton row)
+model ZettleAuth {
+  id           String   @id @default("singleton")
+  accessToken  String
+  refreshToken String
+  expiresAt    DateTime
+  scope        String?
+  tokenType    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("zettle_auth")
 }
 
 enum UserRole {
@@ -100,22 +130,6 @@ enum BookingStatus {
   IN_PROGRESS
   COMPLETED
   CANCELLED
-}
-
-/// Images used across the site and admin
-model Image {
-  id         String        @id @default(cuid())
-  url        String
-  alt        String
-  section    ImageSection
-  creditName String?
-  creditUrl  String?
-  position   Int           @default(0)
-  isActive   Boolean       @default(true)
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
-
-  @@map("images")
 }
 
 enum ImageSection {
