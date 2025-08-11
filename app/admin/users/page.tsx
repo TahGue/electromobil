@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { Copy, RefreshCw } from 'lucide-react';
+import { Copy, RefreshCw, UserPlus } from 'lucide-react';
 
 interface User {
   id: string;
@@ -85,7 +85,13 @@ export default function AdminUsersPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Manage Users</h1>
+        <h1 className="text-2xl font-bold">Hantera användare</h1>
+        <Link href="/admin/users/add">
+          <Button className="bg-green-600 hover:bg-green-700 text-white">
+            <UserPlus className="h-4 w-4 mr-2" />
+            Lägg till användare
+          </Button>
+        </Link>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border rounded shadow">
