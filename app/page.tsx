@@ -9,6 +9,7 @@ import { Testimonials } from '@/components/testimonials'
 import GoogleReviews from '@/components/google-reviews'
 import { PromoCountdown } from '@/components/promo-countdown'
 import { StickyMobileCta } from '@/components/sticky-mobile-cta'
+import WhatsAppChat from '@/components/whatsapp-chat'
 
 export default function Home() {
   return (
@@ -49,6 +50,13 @@ export default function Home() {
 
       {/* Sticky CTA on mobile */}
       <StickyMobileCta />
+
+      {/* WhatsApp Chat Widget */}
+      <WhatsAppChat 
+        phoneNumber="0701234567"
+        businessName="Electromobil"
+        position="bottom-right"
+      />
     </main>
   )
 }
