@@ -4,7 +4,10 @@ import { cookies } from 'next/headers';
 export async function GET() {
   const apiUrl = process.env.ZETTLE_API_URL || 'https://oauth.zettle.com';
   const clientId = process.env.ZETTLE_CLIENT_ID;
-  const redirectUri = process.env.ZETTLE_REDIRECT_URI || 'http://localhost:3000/api/zettle/oauth/callback';
+  const redirectUri = process.env.ZETTLE_REDIRECT_URI || 
+    (process.env.NODE_ENV === 'production' 
+      ? 'https://www.electromobil.se/api/zettle/oauth/callback'
+      : 'http://localhost:3000/api/zettle/oauth/callback');
   const scope = process.env.ZETTLE_SCOPES || 'READ:PURCHASE READ:PRODUCT WRITE:PRODUCT READ:FINANCE';
 
   if (!clientId) {
