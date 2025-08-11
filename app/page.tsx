@@ -6,6 +6,7 @@ import { TrustBar } from '@/components/trust-bar'
 import { ServicesGrid } from '@/components/services-grid'
 import { BeforeAfterGallery } from '@/components/before-after-gallery'
 import { Testimonials } from '@/components/testimonials'
+import GoogleReviews from '@/components/google-reviews'
 import { PromoCountdown } from '@/components/promo-countdown'
 import { StickyMobileCta } from '@/components/sticky-mobile-cta'
 
@@ -22,6 +23,9 @@ export default function Home() {
 
       {/* Before / After */}
       <BeforeAfterGallery />
+
+      {/* Google Reviews */}
+      <GoogleReviews />
 
       {/* Testimonials */}
       <Testimonials />
