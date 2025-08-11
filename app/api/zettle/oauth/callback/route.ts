@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { cookies } from 'next/headers';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   try {
     const apiUrl = process.env.ZETTLE_API_URL || 'https://oauth.zettle.com';
@@ -14,12 +16,14 @@ export async function GET(req: NextRequest) {
     const state = searchParams.get('state');
     const error = searchParams.get('error');
 
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    
     if (error) {
-      return NextResponse.redirect(`/admin/pos?zettle_error=${encodeURIComponent(error)}`);
+      return NextResponse.redirect(`${baseUrl}/admin/pos?zettle_error=${encodeURIComponent(error)}`);
     }
 
     if (!code) {
-      return NextResponse.redirect('/admin/pos?zettle_error=missing_code');
+      return NextResponse.redirect(`${baseUrl}/admin/pos?zettle_error=missing_code`);
     }
 
     // Validate state parameter to prevent CSRF
@@ -28,13 +32,13 @@ export async function GET(req: NextRequest) {
     if (!state || !expectedState || state !== expectedState) {
       // Clear cookie if present
       cookieStore.set('zettle_oauth_state', '', { httpOnly: true, path: '/', maxAge: 0 });
-      return NextResponse.redirect('/admin/pos?zettle_error=invalid_state');
+      return NextResponse.redirect(`${baseUrl}/admin/pos?zettle_error=invalid_state`);
     }
     // Clear state cookie after successful validation
     cookieStore.set('zettle_oauth_state', '', { httpOnly: true, path: '/', maxAge: 0 });
 
     if (!clientId || !clientSecret) {
-      return NextResponse.redirect('/admin/pos?zettle_error=missing_client');
+      return NextResponse.redirect(`${baseUrl}/admin/pos?zettle_error=missing_client`);
     }
 
     const tokenUrl = `${apiUrl}/token`;
@@ -57,7 +61,7 @@ export async function GET(req: NextRequest) {
 
     const text = await resp.text();
     if (!resp.ok) {
-      return NextResponse.redirect(`/admin/pos?zettle_error=${encodeURIComponent(`token_exchange_failed:${resp.status}:${text}`)}`);
+      return NextResponse.redirect(`${baseUrl}/admin/pos?zettle_error=${encodeURIComponent(`token_exchange_failed:${resp.status}:${text}`)}`);
     }
 
     const data = JSON.parse(text) as {
@@ -89,9 +93,10 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    return NextResponse.redirect('/admin/pos?zettle_connected=1');
+    return NextResponse.redirect(`${baseUrl}/admin/pos?zettle_connected=1`);
   } catch (e: any) {
     const msg = e?.message || 'unknown_error';
-    return NextResponse.redirect(`/admin/pos?zettle_error=${encodeURIComponent(msg)}`);
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    return NextResponse.redirect(`${baseUrl}/admin/pos?zettle_error=${encodeURIComponent(msg)}`);
   }
 }

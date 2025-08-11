@@ -3,6 +3,8 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { ZettleAPIService } from '@/lib/zettle-api';
 
+export const dynamic = 'force-dynamic';
+
 // GET /api/zettle/test-connection - Test Zettle connection with env credentials
 export async function GET(request: Request) {
   try {
