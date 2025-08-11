@@ -28,8 +28,8 @@ export async function POST(request: Request) {
     const zettleService = createZettleService();
     
     try {
-      // Authenticate with Zettle
-      await zettleService.authenticate(username, password);
+      // Authenticate with Zettle using stored OAuth tokens
+      await zettleService.authenticate();
       
       let syncResult;
       
@@ -182,7 +182,7 @@ async function syncFromServicesToZettle(zettleService: any) {
           name: service.name,
           description: service.description || '',
           price: {
-            amount: Math.round(service.price * 100), // Convert SEK to öre
+            amount: Math.round((Number(service.price) || 0) * 100), // Convert SEK to öre
             currencyId: 'SEK',
           },
           externalReference: service.id,
