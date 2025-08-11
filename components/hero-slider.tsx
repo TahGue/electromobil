@@ -3,36 +3,74 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-// Simple auto-rotating slider using external stock images.
-// Swap these URLs later with images placed in /public if desired.
-const slides = [
-  {
-    src: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1600&auto=format&fit=crop",
-    headline: "Skärmbyte samma dag",
-    sub: "Premiumdelar, experttekniker, 6–12 mån garanti",
-    cta: { label: "Boka nu", href: "/booking" },
-  },
-  {
-    src: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1600&auto=format&fit=crop",
-    headline: "Batteribyte på 45 minuter",
-    sub: "Håll din mobil som ny",
-    cta: { label: "Få offert", href: "/booking" },
-  },
-  {
-    src: "https://images.unsplash.com/photo-1555421689-43cad7100751?q=80&w=1600&auto=format&fit=crop",
-    headline: "Vi kommer till dig",
-    sub: "Reparation på plats i ditt område",
-    cta: { label: "Ring oss", href: "tel:+46123456789" },
-  },
-];
+// Hero slide type definition
+type HeroSlide = {
+  id: string;
+  url: string;
+  alt: string;
+  headline: string;
+  sub: string;
+  cta: { label: string; href: string };
+  section: string;
+  position: number;
+  isActive: boolean;
+  isDefault?: boolean;
+  creditName?: string | null;
+  creditUrl?: string | null;
+};
 
 export function HeroSlider() {
+  const [slides, setSlides] = useState<HeroSlide[]>([]);
   const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
 
+  // Load hero images from API
   useEffect(() => {
+    const loadHeroImages = async () => {
+      try {
+        const response = await fetch('/api/images/hero');
+        if (response.ok) {
+          const data = await response.json();
+          setSlides(data);
+        }
+      } catch (error) {
+        console.error('Failed to load hero images:', error);
+        // Fallback will be handled by API
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadHeroImages();
+  }, []);
+
+  // Auto-rotate slides
+  useEffect(() => {
+    if (slides.length === 0) return;
     const id = setInterval(() => setIndex((i) => (i + 1) % slides.length), 5000);
     return () => clearInterval(id);
-  }, []);
+  }, [slides.length]);
+
+  // Show loading state
+  if (loading) {
+    return (
+      <section className="relative h-[80vh] overflow-hidden bg-gray-900 flex items-center justify-center">
+        <div className="text-white text-lg">Laddar...</div>
+      </section>
+    );
+  }
+
+  // Show message if no slides available
+  if (slides.length === 0) {
+    return (
+      <section className="relative h-[80vh] overflow-hidden bg-gray-900 flex items-center justify-center">
+        <div className="text-white text-center">
+          <h1 className="text-4xl font-bold mb-4">Välkommen till vår mobilreparation</h1>
+          <p className="text-lg">Professionell service för alla dina enheter</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative h-[80vh] overflow-hidden">
@@ -44,8 +82,8 @@ export function HeroSlider() {
           {/* Background image */}
           {/* Using native img to avoid Next Image domain config for external sources */}
           <img
-            src={s.src}
-            alt={s.headline}
+            src={s.url}
+            alt={s.alt}
             className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-black/50" />
@@ -62,6 +100,24 @@ export function HeroSlider() {
               </div>
             </div>
           </div>
+          
+          {/* Image credit attribution */}
+          {s.creditName && (
+            <div className="absolute bottom-2 right-2 text-xs text-white/70">
+              {s.creditUrl ? (
+                <a 
+                  href={s.creditUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-white/90"
+                >
+                  Foto: {s.creditName}
+                </a>
+              ) : (
+                <span>Foto: {s.creditName}</span>
+              )}
+            </div>
+          )}
         </div>
       ))}
       {/* Dots */}
