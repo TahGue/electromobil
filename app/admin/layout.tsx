@@ -21,6 +21,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <Link href="/admin/password-management" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Lösenordshantering</Link>
           <Link href="/admin/pos" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">POS-system</Link>
           <Link href="/admin/bookings" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Bokningar</Link>
+          <Link href="/admin/promo-countdown" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Kampanjer</Link>
           <Link href="/admin/business-info" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Företagsinfo</Link>
           <Link href="/admin/images" className="rounded px-3 py-2 text-gray-200 hover:text-white hover:bg-gray-800">Bilder</Link>
           {/* Lägg till fler adminlänkar här */}

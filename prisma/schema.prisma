@@ -121,6 +121,21 @@ model ZettleAuth {
   @@map("zettle_auth")
 }
 
+/// Promotional countdown banner configuration (singleton row)
+model PromoCountdown {
+  id          String   @id @default("singleton")
+  isActive    Boolean  @default(true)
+  title       String   @default("Tidsbegränsat erbjudande")
+  description String   @default("rabatt på skärmbyten")
+  percentage  Int      @default(15)
+  couponCode  String   @default("SAVE15")
+  endDateTime DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("promo_countdown")
+}
+
 enum UserRole {
   CUSTOMER
   ADMIN
