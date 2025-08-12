@@ -65,25 +65,34 @@ export function MainNav() {
                 </Button>
                 <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-background shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden group-hover:block">
                   <div className="py-1">
+                    <Link href="/profile">
+                      <span className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-muted">
+                        <User className="mr-2 h-4 w-4" />
+                        Min profil
+                      </span>
+                    </Link>
                     {isAdmin && (
                       <Link href="/admin/dashboard">
-                        <span className="block px-4 py-2 text-sm text-foreground hover:bg-muted">
-  Adminpanel
+                        <span className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-muted">
+                          <LayoutDashboard className="mr-2 h-4 w-4" />
+                          Adminpanel
                         </span>
                       </Link>
                     )}
+                    <div className="border-t border-muted my-1"></div>
                     <button
                       onClick={() => signOut({ callbackUrl: '/' })}
                       className="flex w-full items-center px-4 py-2 text-sm text-red-500 hover:bg-muted"
                     >
                       <LogOut className="mr-2 h-4 w-4" />
-  Logga ut
+                      Logga ut
                     </button>
                   </div>
                 </div>
               </div>
             ) : (
               <Link href="/auth/signin">
+                <Button>Logga in</Button>
       <Button>Logga in</Button>
               </Link>
             )}

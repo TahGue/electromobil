@@ -18,11 +18,16 @@ declare module "next-auth" {
       name: string;
       email: string;
       role: string;
+      image?: string;
+      provider?: string;
     };
   }
 
   interface User {
     role: string;
+    provider?: string;
+    firstName?: string;
+    lastName?: string;
   }
 }
 
@@ -104,17 +109,47 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async signIn({ user, account, profile }) {
+      if (account?.provider !== "credentials") {
+        // Handle social login data
+        try {
+          const existingUser = await prisma.user.findUnique({
+            where: { email: user.email! },
+          });
+
+          if (existingUser) {
+            // Update existing user with social login data
+            await prisma.user.update({
+              where: { id: existingUser.id },
+              data: {
+                name: user.name || existingUser.name,
+                image: user.image || existingUser.image,
+                provider: account.provider,
+                providerId: account.providerAccountId,
+                firstName: (profile as any)?.given_name || existingUser.firstName,
+                lastName: (profile as any)?.family_name || existingUser.lastName,
+                locale: (profile as any)?.locale || existingUser.locale,
+                emailVerified: new Date(),
+              },
+            });
+          }
+        } catch (error) {
+          console.error("Error updating user on social login:", error);
+        }
+      }
+      return true;
+    },
+    async jwt({ token, user, account, profile }) {
       if (user) {
         token.role = user.role;
-        token.id = user.id;
+        token.provider = account?.provider;
       }
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
+      if (token) {
+        session.user.id = token.sub!;
         session.user.role = token.role as string;
-        session.user.id = token.id as string;
       }
       return session;
     },
