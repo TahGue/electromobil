@@ -2,6 +2,10 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type GetServerSidePropsContext } from "next";
 import { getServerSession, type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
+import AppleProvider from "next-auth/providers/apple";
+import TwitterProvider from "next-auth/providers/twitter";
 import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
 
@@ -40,6 +44,42 @@ export const authOptions: NextAuthOptions = {
     error: "/auth/error",
   },
   providers: [
+    // Google OAuth
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      allowDangerousEmailAccountLinking: true,
+    }),
+    
+    // Facebook OAuth
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID || "",
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET || "",
+      allowDangerousEmailAccountLinking: true,
+    }),
+    
+    // Apple OAuth
+    ...(process.env.APPLE_CLIENT_ID && process.env.APPLE_PRIVATE_KEY ? [
+      AppleProvider({
+        clientId: process.env.APPLE_CLIENT_ID,
+        clientSecret: {
+          teamId: process.env.APPLE_TEAM_ID || "",
+          privateKey: process.env.APPLE_PRIVATE_KEY,
+          keyId: process.env.APPLE_KEY_ID || "",
+        },
+        allowDangerousEmailAccountLinking: true,
+      })
+    ] : []),
+    
+    // X (Twitter) OAuth
+    TwitterProvider({
+      clientId: process.env.TWITTER_CLIENT_ID || "",
+      clientSecret: process.env.TWITTER_CLIENT_SECRET || "",
+      version: "2.0",
+      allowDangerousEmailAccountLinking: true,
+    }),
+    
+    // Email/Password Credentials
     CredentialsProvider({
       name: "Credentials",
       credentials: {
