@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import { LayoutDashboard, LogOut, User } from 'lucide-react';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 
 export function MainNav() {
   const pathname = usePathname();
@@ -28,7 +29,7 @@ export function MainNav() {
         <div className="mr-4 hidden md:flex items-center">
           <Link href="/" className="mr-6 flex items-center">
             <img 
-              src="/logo.svg" 
+              src="/logo.png" 
               alt="Electromobil Logo" 
               className="h-10 w-auto"
             />
@@ -55,6 +56,7 @@ export function MainNav() {
 
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2">
+            <ThemeToggle />
             {status === 'loading' ? (
               <div className="h-8 w-20 animate-pulse rounded-md bg-muted" />
             ) : session ? (
@@ -72,7 +74,7 @@ export function MainNav() {
                       </span>
                     </Link>
                     {isAdmin && (
-                      <Link href="/admin/dashboard">
+                      <Link href="/admin">
                         <span className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-muted">
                           <LayoutDashboard className="mr-2 h-4 w-4" />
                           Adminpanel
@@ -93,7 +95,6 @@ export function MainNav() {
             ) : (
               <Link href="/auth/signin">
                 <Button>Logga in</Button>
-      <Button>Logga in</Button>
               </Link>
             )}
           </nav>

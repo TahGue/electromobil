@@ -12,10 +12,10 @@ export async function GET() {
     if (!info) {
       info = await prisma.businessInfo.create({
         data: {
-          name: 'TechFix Mobile',
+          name: 'Electromobil',
           address: '123 Tech St, Digital City, USA',
           phone: '(555) 123-4567',
-          email: 'info@techfixmobile.com',
+          email: 'info@electromobil.se',
           hours: {},
           socialLinks: {},
         },

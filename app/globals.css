@@ -3,31 +3,39 @@
 @tailwind utilities;
 
 :root {
-  /* shadcn/ui färgvariabler (HSL utan hsl()) */
+  /* Enhanced Color System - Light Theme */
+  
+  /* Base Colors */
   --background: 0 0% 100%;
   --foreground: 222.2 84% 8%;
 
+  /* Primary Color System */
+  --primary: 221.2 83.2% 53.3%;        /* Blue */
+  --primary-foreground: 210 40% 98%;
+  --primary-background: 221.2 83.2% 95%;
+  --primary-text: 221.2 83.2% 35%;
+  
+  /* Secondary Color System */
+  --secondary: 142 76% 36%;             /* Green */
+  --secondary-foreground: 210 40% 98%;
+  --secondary-background: 142 76% 95%;
+  --secondary-text: 142 76% 25%;
+
+  /* Accent Color System */
+  --accent: 38 92% 50%;                 /* Orange/Gold */
+  --accent-foreground: 210 40% 98%;
+  --accent-background: 38 92% 95%;
+  --accent-text: 38 92% 35%;
+
+  /* UI Elements */
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 8%;
-
   --popover: 0 0% 100%;
   --popover-foreground: 222.2 84% 8%;
-
-  --primary: 221.2 83.2% 53.3%;
-  --primary-foreground: 210 40% 98%;
-
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 222.2 47.4% 15%;
-
   --muted: 210 40% 96.1%;
   --muted-foreground: 215.4 16.3% 40%;
-
-  --accent: 210 40% 96.1%;
-  --accent-foreground: 222.2 47.4% 15%;
-
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
-
   --border: 214.3 31.8% 85%;
   --input: 214.3 31.8% 91.4%;
   --ring: 221.2 83.2% 53.3%;
@@ -36,30 +44,39 @@
 }
 
 .dark {
+  /* Enhanced Color System - Dark Theme */
+  
+  /* Base Colors */
   --background: 222.2 84% 4.9%;
   --foreground: 210 40% 98%;
 
+  /* Primary Color System */
+  --primary: 217.2 91.2% 59.8%;        /* Lighter Blue */
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --primary-background: 217.2 91.2% 15%;
+  --primary-text: 217.2 91.2% 75%;
+  
+  /* Secondary Color System */
+  --secondary: 142 76% 55%;             /* Lighter Green */
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --secondary-background: 142 76% 15%;
+  --secondary-text: 142 76% 70%;
+
+  /* Accent Color System */
+  --accent: 38 92% 65%;                 /* Lighter Orange/Gold */
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --accent-background: 38 92% 15%;
+  --accent-text: 38 92% 75%;
+
+  /* UI Elements */
   --card: 222.2 84% 4.9%;
   --card-foreground: 210 40% 98%;
-
   --popover: 222.2 84% 4.9%;
   --popover-foreground: 210 40% 98%;
-
-  --primary: 217.2 91.2% 59.8%;
-  --primary-foreground: 222.2 47.4% 11.2%;
-
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-
   --muted: 217.2 32.6% 17.5%;
   --muted-foreground: 215 20.2% 65.1%;
-
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
-
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 0 62.8% 50%;
   --destructive-foreground: 0 85.7% 97.3%;
-
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
   --ring: 224.3 76.3% 48%;
@@ -70,27 +87,94 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground min-h-screen;
+    @apply bg-background text-foreground min-h-screen transition-colors duration-300;
   }
   
   /* Consistent background and text colors for all pages */
   .page-container {
-    @apply min-h-screen bg-background text-foreground;
+    @apply min-h-screen bg-background text-foreground transition-colors duration-300;
   }
+}
+
+@layer components {
+  /* Enhanced Color System Classes */
+  
+  /* Primary Colors */
+  .bg-primary-light { background-color: hsl(var(--primary-background)); }
+  .text-primary-dark { color: hsl(var(--primary-text)); }
+  .border-primary { border-color: hsl(var(--primary)); }
+  
+  /* Secondary Colors */
+  .bg-secondary-light { background-color: hsl(var(--secondary-background)); }
+  .text-secondary-dark { color: hsl(var(--secondary-text)); }
+  .border-secondary { border-color: hsl(var(--secondary)); }
+  
+  /* Accent Colors */
+  .bg-accent-light { background-color: hsl(var(--accent-background)); }
+  .text-accent-dark { color: hsl(var(--accent-text)); }
+  .border-accent { border-color: hsl(var(--accent)); }
+  
+  /* Enhanced Button Variants */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 border-primary;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 border-secondary;
+  }
+  
+  .btn-accent {
+    @apply bg-accent text-accent-foreground hover:bg-accent/90 border-accent;
+  }
+  
+  .btn-outline-primary {
+    @apply bg-transparent text-primary border-primary hover:bg-primary hover:text-primary-foreground;
+  }
+  
+  .btn-outline-secondary {
+    @apply bg-transparent text-secondary border-secondary hover:bg-secondary hover:text-secondary-foreground;
+  }
+  
+  .btn-outline-accent {
+    @apply bg-transparent text-accent border-accent hover:bg-accent hover:text-accent-foreground;
+  }
+  
+  /* Enhanced Card Variants */
+  .card-primary {
+    @apply bg-primary-light border-primary text-primary-dark;
+  }
+  
+  .card-secondary {
+    @apply bg-secondary-light border-secondary text-secondary-dark;
+  }
+  
+  .card-accent {
+    @apply bg-accent-light border-accent text-accent-dark;
+  }
+  
+  /* Text Color Utilities */
+  .text-primary-emphasis { color: hsl(var(--primary)); }
+  .text-secondary-emphasis { color: hsl(var(--secondary)); }
+  .text-accent-emphasis { color: hsl(var(--accent)); }
+  
+  /* Background Color Utilities */
+  .bg-primary-subtle { background-color: hsl(var(--primary-background)); }
+  .bg-secondary-subtle { background-color: hsl(var(--secondary-background)); }
+  .bg-accent-subtle { background-color: hsl(var(--accent-background)); }
   
   /* Form elements consistency */
-  input, select, textarea, button {
-    @apply bg-background text-foreground border border-input rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  input, select, textarea {
+    @apply bg-background text-foreground border border-input rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-colors;
   }
   
-  /* Buttons */
+  /* Base button styles */
   .btn {
-    @apply px-4 py-2 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring;
+    @apply px-4 py-2 rounded-md font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring;
   }
   
-  /* Cards */
+  /* Enhanced cards */
   .card {
-    @apply bg-card text-card-foreground rounded-lg border shadow-sm;
+    @apply bg-card text-card-foreground rounded-lg border shadow-sm transition-colors duration-300;
   }
   
   /* Headings */
@@ -98,9 +182,17 @@
     @apply text-foreground font-semibold;
   }
   
-  /* Links */
+  /* Enhanced Links */
   a {
-    @apply text-primary hover:text-primary/80 transition-colors;
+    @apply text-primary hover:text-primary/80 transition-colors duration-200;
+  }
+  
+  .link-secondary {
+    @apply text-secondary hover:text-secondary/80 transition-colors duration-200;
+  }
+  
+  .link-accent {
+    @apply text-accent hover:text-accent/80 transition-colors duration-200;
   }
   
   /* Form labels */

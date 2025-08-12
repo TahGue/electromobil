@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Target, ShieldCheck } from 'lucide-react';
 
 const mockBusinessInfo = {
-  name: 'TechFix Mobile',
+  name: 'Electromobil',
   founded: 2023,
     mission: 'Att erbjuda pålitliga, prisvärda och högkvalitativa mobilreparations tjänster till vår gemenskap.',
   values: [

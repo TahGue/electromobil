@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'TechFix Mobile - Mobile Repair Shop',
+  title: 'Electromobil - Mobile Repair Shop',
   description: 'Professional mobile phone repair services with online booking',
 };
 
@@ -36,9 +36,9 @@ export default function RootLayout({
         <SessionProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
-            enableSystem={false}
-            disableTransitionOnChange
+            defaultTheme="system"
+            enableSystem={true}
+            disableTransitionOnChange={false}
           >
             <div className="page-container flex flex-col">
               <MainNav />

@@ -9,7 +9,7 @@ async function main() {
   
   const admin = await prisma.user.create({
     data: {
-      email: 'admin@techfixmobile.com',
+      email: 'admin@electromobil.se',
       name: 'Admin User',
       role: 'ADMIN',
       password: hashedPassword,
@@ -55,10 +55,10 @@ async function main() {
   // Create business info
   await prisma.businessInfo.create({
     data: {
-      name: 'TechFix Mobile',
+      name: 'Electromobil',
       address: '123 Tech Street, Digital City, DC 12345',
       phone: '(555) 123-4567',
-      email: 'info@techfixmobile.com',
+      email: 'info@electromobil.se',
       hours: {
         monday: { open: '09:00', close: '19:00' },
         tuesday: { open: '09:00', close: '19:00' },
@@ -69,9 +69,9 @@ async function main() {
         sunday: { open: '12:00', close: '16:00' }
       },
       socialLinks: {
-        facebook: 'https://facebook.com/techfixmobile',
-        instagram: 'https://instagram.com/techfixmobile',
-        twitter: 'https://twitter.com/techfixmobile'
+        facebook: 'https://facebook.com/electromobil',
+        instagram: 'https://instagram.com/electromobil',
+        twitter: 'https://twitter.com/electromobil'
       }
     }
   })

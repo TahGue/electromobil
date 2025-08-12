@@ -14,10 +14,10 @@ export const getBusinessInfo = cache(async () => {
   if (!process.env.DATABASE_URL) {
     return {
       id: '',
-      name: 'TechFix Mobile',
+      name: 'Electromobil',
       address: '123 Tech St, Digital City, USA',
       phone: '(555) 123-4567',
-      email: 'info@techfixmobile.com',
+      email: 'info@electromobil.se',
       hours: {},
       socialLinks: { facebook: '#', twitter: '#', instagram: '#' },
     };
@@ -33,10 +33,10 @@ export const getBusinessInfo = cache(async () => {
   // Provide default info if none is found in the database
   return info || {
     id: '',
-    name: 'TechFix Mobile',
+    name: 'Electromobil',
     address: '123 Tech St, Digital City, USA',
     phone: '(555) 123-4567',
-    email: 'info@techfixmobile.com',
+    email: 'info@electromobil.se',
     hours: {},
     socialLinks: { facebook: '#', twitter: '#', instagram: '#' },
   };
