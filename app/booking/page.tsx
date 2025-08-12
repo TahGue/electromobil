@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { sv as svLocale } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -26,8 +27,10 @@ interface Service {
 
 export default function BookingPage() {
   const { toast } = useToast();
+  const { data: session } = useSession();
   const [services, setServices] = React.useState<Service[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [userProfile, setUserProfile] = React.useState<any>(null);
 
   React.useEffect(() => {
     const fetchServices = async () => {
@@ -53,8 +56,41 @@ export default function BookingPage() {
     fetchServices();
   }, [toast]);
 
+  // Fetch user profile if logged in
+  React.useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (session?.user) {
+        try {
+          const response = await fetch('/api/profile');
+          if (response.ok) {
+            const profile = await response.json();
+            setUserProfile(profile);
+            
+            // Auto-fill form with user data
+            form.reset({
+              name: profile.name || '',
+              email: profile.email || '',
+              phone: profile.phone || '',
+              notes: ''
+            });
+          }
+        } catch (error) {
+          console.error('Error fetching user profile:', error);
+        }
+      }
+    };
+
+    fetchUserProfile();
+  }, [session]);
+
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(bookingFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      notes: ''
+    }
   });
 
   const onSubmit = async (data: BookingFormValues) => {

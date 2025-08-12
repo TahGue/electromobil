@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { bookingFormSchema } from '@/lib/validations/booking';
 import { generateBookingNumber } from '@/lib/booking-utils';
@@ -28,6 +30,7 @@ interface BookingRequest {
 
 export async function POST(req: Request) {
   try {
+    const session = await getServerSession(authOptions);
     const json: BookingRequest = await req.json();
     const body = bookingFormSchema.parse({
       ...json,
@@ -47,17 +50,25 @@ export async function POST(req: Request) {
       return new NextResponse('Service not found', { status: 404 });
     }
 
+    // Create booking data
+    const bookingData: any = {
+      bookingNumber,
+      customerName: body.name,
+      customerEmail: body.email,
+      customerPhone: body.phone,
+      serviceId: body.serviceId,
+      preferredDate: body.appointmentDate,
+      notes: body.notes,
+      estimatedPrice: service.price,
+    };
+
+    // Link to user if authenticated
+    if (session?.user?.id) {
+      bookingData.userId = session.user.id;
+    }
+
     const booking = await prisma.booking.create({
-      data: {
-        bookingNumber,
-        customerName: body.name,
-        customerEmail: body.email,
-        customerPhone: body.phone,
-        serviceId: body.serviceId,
-        preferredDate: body.appointmentDate,
-        notes: body.notes,
-        estimatedPrice: service.price,
-      },
+      data: bookingData,
       include: {
         service: { select: { name: true } }
       }
