@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import { ZettleAPIService } from '@/lib/zettle-api';
+import { createZettleService } from '@/lib/zettle-api';
 import { prisma } from '@/lib/prisma';
 
 // GET /api/zettle/products - Get products from Zettle
@@ -16,21 +16,8 @@ export async function GET(request: Request) {
       );
     }
 
-    // Determine authentication method
-    const authMethod = process.env.ZETTLE_API_KEY ? 'apikey' : 'oauth';
-    
-    // Initialize Zettle API service
-    const zettleService = new ZettleAPIService({
-      clientId: process.env.ZETTLE_CLIENT_ID,
-      clientSecret: process.env.ZETTLE_CLIENT_SECRET,
-      apiKey: process.env.ZETTLE_API_KEY,
-      authMethod: authMethod as 'oauth' | 'apikey',
-      apiUrl: process.env.ZETTLE_API_URL || 'https://oauth.izettle.com',
-      environment: (process.env.ZETTLE_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox',
-      currency: process.env.ZETTLE_CURRENCY || 'SEK',
-      country: process.env.ZETTLE_COUNTRY || 'SE',
-      locale: process.env.ZETTLE_LOCALE || 'sv-SE'
-    });
+    // Initialize Zettle API service via centralized factory
+    const zettleService = createZettleService();
     
     try {
       console.log('Starting Zettle authentication...');
@@ -85,20 +72,7 @@ export async function POST(request: Request) {
       });
 
       // Determine authentication method
-      const authMethod = process.env.ZETTLE_API_KEY ? 'apikey' : 'oauth';
-      
-      // Initialize Zettle API service
-      const zettleService = new ZettleAPIService({
-        clientId: process.env.ZETTLE_CLIENT_ID,
-        clientSecret: process.env.ZETTLE_CLIENT_SECRET,
-        apiKey: process.env.ZETTLE_API_KEY,
-        authMethod: authMethod as 'oauth' | 'apikey',
-        apiUrl: process.env.ZETTLE_API_URL || 'https://oauth.izettle.com',
-        environment: (process.env.ZETTLE_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox',
-        currency: process.env.ZETTLE_CURRENCY || 'SEK',
-        country: process.env.ZETTLE_COUNTRY || 'SE',
-        locale: process.env.ZETTLE_LOCALE || 'sv-SE'
-      });
+      const zettleService = createZettleService();
       
       try {
         // Authenticate and sync products

@@ -16,14 +16,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { direction, username, password } = await request.json();
-    
-    if (!username || !password) {
-      return NextResponse.json(
-        { message: 'Zettle-inloggningsuppgifter krävs för synkronisering' },
-        { status: 400 }
-      );
-    }
+    const { direction } = await request.json();
 
     const zettleService = createZettleService();
     
