@@ -32,22 +32,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          'min-h-screen bg-background font-sans antialiased',
-          inter.className
-        )}
-      >
+      <body className={cn('font-sans antialiased', inter.className)}>
         <SessionProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="light"
+            enableSystem={false}
             disableTransitionOnChange
           >
-            <div className="relative flex min-h-screen flex-col">
+            <div className="page-container flex flex-col">
               <MainNav />
-              <main className="flex-1">{children}</main>
+              <main className="flex-1">
+                <div className="container mx-auto px-4 py-8">
+                  {children}
+                </div>
+              </main>
               <Footer />
             </div>
             <Toaster />

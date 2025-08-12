@@ -25,12 +25,13 @@ export function MainNav() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <LayoutDashboard className="h-6 w-6" />
-            <span className="hidden font-bold sm:inline-block">
-              TechFix Mobile
-            </span>
+        <div className="mr-4 hidden md:flex items-center">
+          <Link href="/" className="mr-6 flex items-center">
+            <img 
+              src="/logo.svg" 
+              alt="Electromobil Logo" 
+              className="h-10 w-auto"
+            />
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {routes.map((route) => {
