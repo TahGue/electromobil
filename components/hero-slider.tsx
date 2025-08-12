@@ -92,11 +92,6 @@ export function HeroSlider() {
               <div className="max-w-2xl text-white">
                 <h1 className="text-4xl md:text-6xl font-bold mb-4 text-shadow-lg">{s.headline}</h1>
                 <p className="text-lg md:text-xl text-white/90 mb-8 text-shadow">{s.sub}</p>
-                <Link href={s.cta.href}>
-                  <Button className="bg-white text-black hover:bg-gray-100 hover:text-black dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white px-6 py-3">
-                    {s.cta.label}
-                  </Button>
-                </Link>
               </div>
             </div>
           </div>
