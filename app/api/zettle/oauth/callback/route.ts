@@ -5,6 +5,9 @@ import { cookies } from 'next/headers';
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
+  console.log('=== ZETTLE OAUTH CALLBACK START ===');
+  console.log('Request URL:', req.url);
+  
   try {
     const apiUrl = process.env.ZETTLE_API_URL || 'https://oauth.zettle.com';
     const clientId = process.env.ZETTLE_CLIENT_ID;
@@ -14,12 +17,22 @@ export async function GET(req: NextRequest) {
         ? 'https://www.electromobil.se/api/zettle/oauth/callback'
         : 'http://localhost:3000/api/zettle/oauth/callback');
 
+    console.log('Environment check:', { 
+      hasClientId: !!clientId, 
+      hasClientSecret: !!clientSecret, 
+      apiUrl, 
+      redirectUri 
+    });
+
     const { searchParams } = new URL(req.url);
     const code = searchParams.get('code');
     const state = searchParams.get('state');
     const error = searchParams.get('error');
 
+    console.log('OAuth callback params:', { code: !!code, state, error });
+
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    console.log('Base URL:', baseUrl);
     
     if (error) {
       return NextResponse.redirect(`${baseUrl}/admin/pos?zettle_error=${encodeURIComponent(error)}`);
