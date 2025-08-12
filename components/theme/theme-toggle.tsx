@@ -23,20 +23,16 @@ export function ThemeToggle() {
   }
 
   const toggleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark');
-    } else if (theme === 'dark') {
-      setTheme('system');
-    } else {
+    if (theme === 'dark') {
       setTheme('light');
+    } else {
+      setTheme('dark');
     }
   };
 
   const getIcon = () => {
     if (theme === 'dark') {
       return <Moon className="h-[1.2rem] w-[1.2rem]" />;
-    } else if (theme === 'system') {
-      return <span className="text-lg">💻</span>;
     } else {
       return <Sun className="h-[1.2rem] w-[1.2rem]" />;
     }
@@ -44,9 +40,7 @@ export function ThemeToggle() {
 
   const getTitle = () => {
     if (theme === 'dark') {
-      return 'Mörkt tema - klicka för system';
-    } else if (theme === 'system') {
-      return 'System tema - klicka för ljust';
+      return 'Mörkt tema - klicka för ljust';
     } else {
       return 'Ljust tema - klicka för mörkt';
     }

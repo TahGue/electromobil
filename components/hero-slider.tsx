@@ -93,7 +93,7 @@ export function HeroSlider() {
                 <h1 className="text-4xl md:text-6xl font-bold mb-4 text-shadow-lg">{s.headline}</h1>
                 <p className="text-lg md:text-xl text-white/90 mb-8 text-shadow">{s.sub}</p>
                 <Link href={s.cta.href}>
-                  <Button className="bg-white text-black hover:bg-gray-100 px-6 py-3">
+                  <Button className="bg-white text-black hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 px-6 py-3">
                     {s.cta.label}
                   </Button>
                 </Link>

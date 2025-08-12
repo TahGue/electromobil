@@ -53,7 +53,7 @@ export default function WhatsAppChat({
     <div className={`fixed ${positionClasses[position]} z-50 ${className}`}>
       {/* Chat Widget */}
       {isOpen && (
-        <div className="mb-4 w-80 bg-white rounded-lg shadow-2xl border overflow-hidden animate-in slide-in-from-bottom-2">
+        <div className="mb-4 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-2xl border dark:border-gray-700 overflow-hidden animate-in slide-in-from-bottom-2">
           {/* Header */}
           <div className="bg-green-500 text-white p-4 flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -74,7 +74,7 @@ export default function WhatsAppChat({
           </div>
 
           {/* Business Hours Info */}
-          <div className="p-3 bg-green-50 border-b flex items-center space-x-2 text-sm text-green-700">
+          <div className="p-3 bg-green-50 dark:bg-green-900/20 border-b dark:border-gray-700 flex items-center space-x-2 text-sm text-green-700 dark:text-green-300">
             <Clock className="w-4 h-4" />
             <span>{businessHours}</span>
           </div>
@@ -82,7 +82,7 @@ export default function WhatsAppChat({
           {/* Content */}
           <div className="p-4">
             <div className="mb-4">
-              <p className="text-gray-800 text-sm mb-3">
+              <p className="text-gray-800 dark:text-gray-200 text-sm mb-3">
                 Hej! 👋 Hur kan vi hjälpa dig idag?
               </p>
 
@@ -90,25 +90,25 @@ export default function WhatsAppChat({
               <div className="space-y-2 mb-4">
                 <button
                   onClick={() => handleQuickMessage('skärmreparation')}
-                  className="w-full text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm transition-colors"
+                  className="w-full text-left p-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg text-sm transition-colors text-gray-800 dark:text-gray-200"
                 >
                   📱 Skärmreparation
                 </button>
                 <button
                   onClick={() => handleQuickMessage('batteribyte')}
-                  className="w-full text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm transition-colors"
+                  className="w-full text-left p-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg text-sm transition-colors text-gray-800 dark:text-gray-200"
                 >
                   🔋 Batteribyte
                 </button>
                 <button
                   onClick={() => handleQuickMessage('vattenskada')}
-                  className="w-full text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm transition-colors"
+                  className="w-full text-left p-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg text-sm transition-colors text-gray-800 dark:text-gray-200"
                 >
                   💧 Vattenskada
                 </button>
                 <button
                   onClick={() => handleQuickMessage('prisförfrågan')}
-                  className="w-full text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm transition-colors"
+                  className="w-full text-left p-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg text-sm transition-colors text-gray-800 dark:text-gray-200"
                 >
                   💰 Prisförfrågan
                 </button>
@@ -116,14 +116,14 @@ export default function WhatsAppChat({
 
               {/* Custom Message */}
               <div className="space-y-3">
-                <label className="block text-sm font-medium text-gray-800">
+                <label className="block text-sm font-medium text-gray-800 dark:text-gray-200">
                   Eller skriv ditt eget meddelande:
                 </label>
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Skriv ditt meddelande här..."
-                  className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg resize-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   rows={3}
                 />
                 <button
@@ -138,8 +138,8 @@ export default function WhatsAppChat({
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-3 bg-gray-50 border-t">
-            <div className="flex items-center space-x-2 text-xs text-gray-700">
+          <div className="px-4 py-3 bg-gray-50 dark:bg-gray-700 border-t dark:border-gray-600">
+            <div className="flex items-center space-x-2 text-xs text-gray-700 dark:text-gray-300">
               <Phone className="w-3 h-3" />
               <span>Powered by WhatsApp</span>
             </div>
