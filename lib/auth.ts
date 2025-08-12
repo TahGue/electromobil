@@ -30,6 +30,10 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
+    // Admin sessions expire after 4 hours of inactivity
+    maxAge: 4 * 60 * 60, // 4 hours in seconds
+    // Update session every 30 minutes to prevent unnecessary token refreshes
+    updateAge: 30 * 60, // 30 minutes in seconds
   },
   pages: {
     signIn: "/auth/signin",

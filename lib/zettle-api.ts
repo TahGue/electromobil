@@ -524,7 +524,7 @@ export function createZettleService(): ZettleAPIService {
     clientId: process.env.ZETTLE_CLIENT_ID || '',
     clientSecret: process.env.ZETTLE_CLIENT_SECRET || '',
     apiUrl: process.env.ZETTLE_API_URL || 'https://oauth.zettle.com',
-    environment: (process.env.ZETTLE_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox',
+    environment: ((process.env.ZETTLE_ENVIRONMENT?.trim()) as 'sandbox' | 'production') || 'sandbox',
     currency: process.env.ZETTLE_CURRENCY || 'SEK',
     country: process.env.ZETTLE_COUNTRY || 'SE',
     locale: process.env.ZETTLE_LOCALE || 'sv-SE',

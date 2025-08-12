@@ -77,24 +77,34 @@ export async function GET(req: NextRequest) {
 
     const expiresAt = new Date(Date.now() + data.expires_in * 1000);
 
-    await prisma.zettleAuth.upsert({
-      where: { id: 'singleton' },
-      update: {
-        accessToken: data.access_token,
-        refreshToken: data.refresh_token || '',
-        tokenType: data.token_type || 'Bearer',
-        scope: data.scope,
-        expiresAt,
-      },
-      create: {
-        id: 'singleton',
-        accessToken: data.access_token,
-        refreshToken: data.refresh_token || '',
-        tokenType: data.token_type || 'Bearer',
-        scope: data.scope,
-        expiresAt,
-      },
-    });
+    console.log('Zettle OAuth callback: Saving tokens to database...');
+    console.log('Token expires at:', expiresAt.toISOString());
+    console.log('Has refresh token:', !!data.refresh_token);
+
+    try {
+      const result = await prisma.zettleAuth.upsert({
+        where: { id: 'singleton' },
+        update: {
+          accessToken: data.access_token,
+          refreshToken: data.refresh_token || '',
+          tokenType: data.token_type || 'Bearer',
+          scope: data.scope,
+          expiresAt,
+        },
+        create: {
+          id: 'singleton',
+          accessToken: data.access_token,
+          refreshToken: data.refresh_token || '',
+          tokenType: data.token_type || 'Bearer',
+          scope: data.scope,
+          expiresAt,
+        },
+      });
+      console.log('Zettle OAuth tokens saved successfully:', result.id);
+    } catch (dbError) {
+      console.error('Failed to save Zettle OAuth tokens to database:', dbError);
+      return NextResponse.redirect(`${baseUrl}/admin/pos?zettle_error=${encodeURIComponent('database_save_failed:' + (dbError as Error).message)}`);
+    }
 
     return NextResponse.redirect(`${baseUrl}/admin/pos?zettle_connected=1`);
   } catch (e: any) {
