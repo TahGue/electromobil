@@ -49,7 +49,13 @@ export function BeforeAfterGallery() {
                 <img src={images[open].after} alt="Efter" className="w-full h-full object-cover" />
               </div>
               <div className="p-4 text-center font-medium">{images[open].caption}</div>
-              <button className="absolute top-4 right-4 text-white" onClick={() => setOpen(null)}>✕</button>
+              <button
+                aria-label="Stäng"
+                className="absolute top-4 right-4 bg-black/60 hover:bg-black/70 text-white rounded-full p-2 leading-none"
+                onClick={() => setOpen(null)}
+              >
+                ✕
+              </button>
             </div>
           </div>
         )}
